@@ -1,5 +1,6 @@
 package com.example.second
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         signButton()
+        logInPage()
     }
 
     private fun signButton() {
@@ -26,6 +28,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "이용약관에 먼저 동의 해 주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+        }
+    }
+
+    private fun logInPage() {
+        binding.loginButton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
