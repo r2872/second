@@ -1,10 +1,13 @@
 package com.example.second
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.second.databinding.ActivityLoginBinding
+import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,6 +22,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         signInPage()
+        emailCheck()
+
+        binding.idEdt.setOnClickListener {
+            binding.idEdt.backgroundTintList =
+                ContextCompat.getColorStateList(applicationContext, R.color.black)
+        }
     }
 
     private fun signInPage() {
@@ -27,6 +36,19 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun emailCheck() {
+        val idPattern: Pattern = android.util.Patterns.EMAIL_ADDRESS
+        binding.loginButton.setOnClickListener {
+            if (!idPattern.matcher(binding.idEdt.text).matches()) {
+                Toast.makeText(this, "이메일 형식을 확인 해 주세요!!", Toast.LENGTH_SHORT).show()
+                binding.idEdt.backgroundTintList =
+                    ContextCompat.getColorStateList(applicationContext, R.color.red)
+                return@setOnClickListener
+            }
+        }
+
     }
 
     override fun onDestroy() {
